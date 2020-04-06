@@ -1,14 +1,22 @@
+from __future__ import division
+from __future__ import print_function
 import sys
 import pandas as pd
 import numpy as np
-import Tkinter as tk
-import tkFileDialog
+#import Tkinter as tk
+#import tkFileDialog
 import matplotlib.pyplot as plt
 from scipy import stats
 from matplotlib.widgets import Button
 from scipy.signal import savgol_filter
 from numpy import NaN, Inf, arange, isscalar, asarray, array
-
+try: 
+    import Tkinter as tk
+    from tkFileDialog import askopenfilename
+except:
+    import tkinter as tk
+    from tkinter.filedialog import askopenfilename
+    
 #Instance Variables
 PeakTable = pd.DataFrame(columns=['Wavelength (nm)', 'Absorbance', "v''", '',"v'","v'' = 0 (nm)","v'","v'' = 1 (nm)","v'","v'' = 2 (nm)",])
 WavenumberTable = pd.DataFrame(columns = ["v'+0.5","v'' = 0 (cm-1)","v'+0.5","v'' = 1 (cm-1)","v'+0.5","v'' = 2 (cm-1)",])
@@ -460,7 +468,8 @@ class axButton:
 #setting up interface for dialogue box 
 root = tk.Tk()
 root.withdraw()
-file_path = tkFileDialog.askopenfilename()
+#file_path = tkFileDialog.askopenfilename()
+file_path = askopenfilename()
 df=pd.read_csv(file_path)
 #create a dataframe of selected data
 df=pd.read_csv(file_path,header=1,names=['nm','absorbance'],index_col=False)
